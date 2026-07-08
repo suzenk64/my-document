@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal code </title>
+    <link rel="manifest" href="manifest.json">
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #toolbar {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+        .status-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <select id="language-selector" onchange="changeLanguage(this.value)">
+        <option value="en">ENGLISH</option>
+        <option value="hi">HINDI</option>
+        <option value="gu">GUJARATI</option>
+        <option value="hi-latn">HINGLISH</option>
+    </select>
+
+    <div id="toolbar"></div>
+
+    <div style="margin-top:20px;">
+        <button id="voice-btn" onclick="startSpeech()">Speak / बोलें</button>
+        <div class="status-container">
+            <p>Status: <span id="voice-status">Click button to speak...</span></p>
+            <p>You said: <span id="user-speech">...</span></p>
+        </div>
+    </div>
+
+    <script>
+        // =========================================================================
+        // MASTER LIST: भविष्य में कोई भी नया बटन या कमांड जोड़ना हो, तो सिर्फ यहाँ नाम बढ़ाएं!
+        // =========================================================================
+        const tools = ["line", "polyline", "circle", "clear", "invoice", "checking","print"];
+
+        // ग्लोबल वेरिएबल्स
+        let currentLanguage = "en";
+        let commandKeywords = {};
+        let translations = { en: {}, hi: {}, gu: {}, "hi-latn": {} };
+
+        // ऑटोमैटिक ट्रांसलेशन और डेटा सेट करने का फंक्शन
+        async function autoTranslateTools() {
+            const statusSpan = document.getElementById("voice-status");
+            statusSpan.innerText = "Loading translations...";
+
+            for (let tool of tools) {
+                // इंग्लिश और हिंग्लिश डिफ़ॉल्ट नाम सेट करें
+                translations["en"][tool] = tool.toUpperCase();
+                translations["hi-latn"][tool] = tool.charAt(0).toUpperCase() + tool.slice(1);
+                
+                // वॉइस कमांड की लिस्ट में शुरुआती इंग्लिश नाम डालें
+                commandKeywords[tool] = [tool.toLowerCase()];
+
+                try {
+                    // Google Translate से ऑटोमैटिक हिंदी शब्द उठाना
+                    let resHi = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=hi&dt=t&q=${encodeURIComponent(tool)}`);
+                    let dataHi = await resHi.json();
+                    let translatedHi = dataHi[0][0][0];
+                    translations["hi"][tool] = translatedHi;
+                    commandKeywords[tool].push(translatedHi.toLowerCase());
+
+                    // Google Translate से ऑटोमैटिक गुजराती शब्द उठाना
+                    let resGu = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=gu&dt=t&q=${encodeURIComponent(tool)}`);
+                    let dataGu = await resGu.json();
+                    let translatedGu = dataGu[0][0][0];
+                    translations["gu"][tool] = translatedGu;
+                    commandKeywords[tool].push(translatedGu.toLowerCase());
+                    
+                } catch (error) {
+                    console.error("Translation failed for:", tool, error);
+                    // इंटरनेट न होने पर बैकअप में वही नाम रहेगा
+                    translations["hi"][tool] = tool;
+                    translations["gu"][tool] = tool;
+                }
+            }
+            
+            statusSpan.innerText = "Ready!";
+            createButtons(); // ट्रांसलेशन होते ही बटन बनाओ
+        }
+
+        // बटन को स्क्रीन पर खुद-ब-खुद बनाने का फंक्शन
+        function createButtons() {
+            const toolbar = document.getElementById("toolbar");
+            toolbar.innerHTML = ""; // पुराना टूलबार साफ़ करें
+
+            tools.forEach(toolName => {
+                const btn = document.createElement("button");
+                // भाषा के अनुसार नाम सेट करें, नहीं तो डिफ़ॉल्ट इंग्लिश नाम रखें
+                btn.innerText = translations[currentLanguage][toolName] || toolName;
+                btn.onclick = () => executeAction(toolName);
+                toolbar.appendChild(btn);
+            });
+        }
+
+        // भाषा बदलने पर बटन के नाम तुरंत रीलोड करने का फंक्शन
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            createButtons();
+        }
+
+        // ऑटोमैटिक वॉइस कमांड चेकर लूप
+        function processVoiceCommand(command) {
+            let lowercaseCommand = command.toLowerCase().trim();
+            
+            for (let action in commandKeywords) {
+                // चेक करें कि यूजर की आवाज़ में लिस्ट का कोई भी शब्द शामिल है या नहीं
+                if (commandKeywords[action].some(keyword => lowercaseCommand.includes(keyword))) {
+                    executeAction(action);
+                    return;
+                }
+            }
+            alert(`Command "${command}" not recognized.`);
+        }
+
+        // असली काम करने वाला कॉमन फंक्शन (कमांड एग्जीक्यूशन)
+        function executeAction(actionName) {
+            alert(`Executed: ${actionName.toUpperCase()}`);
+            // यहाँ आप अपना आगे का कोड (जैसे AutoCAD या कोई और एक्शन) जोड़ सकते हैं
+        }
+
+        // स्पीच रिकग्निशन (आवाज़ सुनने का सिस्टम)
+        function startSpeech() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert("Your browser does not support Speech Recognition. Please use Chrome.");
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            // ड्रॉपडाउन की भाषा के अनुसार वॉइस इनपुट सेट करना
+            recognition.lang = currentLanguage === "hi-latn" ? "hi-IN" : (currentLanguage === "hi" ? "hi-IN" : (currentLanguage === "gu" ? "gu-IN" : "en-US"));
+            
+            const statusSpan = document.getElementById("voice-status");
+            const speechSpan = document.getElementById("user-speech");
+
+            statusSpan.innerText = "Listening... Speak now.";
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const resultText = event.results[0][0].transcript;
+                speechSpan.innerText = resultText;
+                processVoiceCommand(resultText);
+            };
+
+            recognition.onerror = function(event) {
+                statusSpan.innerText = "Error occurred: " + event.error;
+            };
+
+            recognition.onend = function() {
+                if(statusSpan.innerText === "Listening... Speak now.") {
+                    statusSpan.innerText = "Stopped listening.";
+                }
+            };
+        }
+
+        // पेज खुलते ही बैकग्राउंड में ऑटो-ट्रांसलेशन सिस्टम चालू करें
+        autoTranslateTools();
+
+            // सर्विस वर्कर को एक्टिवेट करने के लिए यह कोड index.html के स्क्रिप्ट में सबसे नीचे डालें
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('Service Worker Registered Successfully!', reg))
+            .catch(err => console.error('Service Worker Registration Failed!', err));
+    });
+}
+
+
+    </script>
+</body>
+</html>

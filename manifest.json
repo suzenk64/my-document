@@ -1,0 +1,17 @@
+{
+  "short_name": "VoiceApp",
+  "name": "Universal Voice Control Automation App",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/25/25694.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "orientation": "portrait"
+}
