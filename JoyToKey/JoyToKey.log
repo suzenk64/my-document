@@ -1,0 +1,74 @@
+2026/07/23 23:37:28.249 Info   Starting JoyToKey v7.3.3
+2026/07/23 23:37:28.249 Info   ExeFile = C:\Program Files (x86)\JoyToKey\JoyToKey.exe
+2026/07/23 23:37:28.249 Info   Args = C:\Program Files (x86)\JoyToKey\JoyToKey.exe
+2026/07/23 23:37:28.249 Info   DataDirectory = F:\my document\JoyToKey\
+2026/07/23 23:37:28.249 Info   Profile = 
+2026/07/23 23:37:28.249 Info   IniFile = F:\my document\JoyToKey\JoyToKey.ini
+2026/07/23 23:37:28.249 Info   Loading ini file: F:\my document\JoyToKey\JoyToKey.ini (AppInfo.cpp#263)
+2026/07/23 23:37:28.249 Info   LicenseKey "" is not valid
+2026/07/23 23:37:28.562 Info   Windows 10 or later (Main.cpp#106)
+2026/07/23 23:37:28.562 Info   Loading hid.dll (ProcessingHID.h#58)
+2026/07/23 23:37:28.562 Info   Initialized HID (Processing.cpp#178)
+2026/07/23 23:37:28.562 Info   Loading XInput1_4.dll (Processing.cpp#188)
+2026/07/23 23:37:28.577 Info   Initialized XInput (Processing.cpp#217)
+2026/07/23 23:37:28.655 Info   Initialized DirectInput (Processing.cpp#230)
+2026/07/23 23:37:28.655 Info   DetectJoysticks: Detected 0 XI joystick(s)
+2026/07/23 23:37:28.687 Info   0 joystick(s) are detected (Processing.cpp#317)
+2026/07/23 23:37:28.687 Info   ConfigDir=F:\my document\JoyToKey\*.cfg (ConfigFileManager.cpp#41)
+2026/07/23 23:37:28.687 Info   Failed to find AppLink.dat (AppLinkManager.cpp#29)
+2026/07/23 23:37:28.733 Info   Application is running with standard user privileges (Main.cpp#191)
+2026/07/23 23:37:28.733 Info   TimerInit: Initializing timer at 16 msec (with x1 speed mode)
+2026/07/23 23:37:28.733 Info   TimerInit: Timer initialized (Processing.cpp#1040)
+2026/07/23 23:37:28.765 Error  Failed to obtain the target window handle (Utils.cpp#357)
+2026/07/23 23:37:28.765 Error  Access is denied.
+ (Utils.cpp#358)
+2026/07/23 23:41:11.881 Info   Detected a HID controller[1]: VendorId=0x20BC, ProductId=0x5500, UsagePage=1, Usage=5, Path=\\?\HID#VID_20BC&PID_5500&MI_01#8&2f0049d8&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}
+2026/07/23 23:41:11.881 Info   Vendor = General
+2026/07/23 23:41:11.881 Info   Product = Twin USB Joystick
+2026/07/23 23:41:11.881 Info   DeviceName = Twin USB Joystick
+2026/07/23 23:41:11.881 Info   numAxis = 6 [1,1,1,0,0,1,1,1]
+2026/07/23 23:41:11.881 Info   numPOVs = 1
+2026/07/23 23:41:11.881 Info   numButtons = 15
+2026/07/23 23:41:11.881 Info   Detected a HID controller[2]: VendorId=0x20BC, ProductId=0x5500, UsagePage=1, Usage=5, Path=\\?\HID#VID_20BC&PID_5500&MI_00#8&173cbd93&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}
+2026/07/23 23:41:11.881 Info   Vendor = General
+2026/07/23 23:41:11.881 Info   Product = Twin USB Joystick
+2026/07/23 23:41:11.881 Info   DeviceName = Twin USB Joystick
+2026/07/23 23:41:11.881 Info   numAxis = 6 [1,1,1,0,0,1,1,1]
+2026/07/23 23:41:11.881 Info   numPOVs = 1
+2026/07/23 23:41:11.881 Info   numButtons = 15
+2026/07/23 23:41:11.881 Info   DetectJoysticks: Detected 0 XI joystick(s)
+2026/07/23 23:41:11.930 Info   Detected a DI joystick: Twin USB Joystick, Twin USB Joystick, 550020BC, {E5FB2720-86E9-11F1-8001-444553540000}
+2026/07/23 23:41:11.930 Info   numAxis = 6
+2026/07/23 23:41:11.930 Info   numPOVs = 1
+2026/07/23 23:41:11.930 Info   numButtons = 15
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=4 type=502 name=Z Rotation
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=8 type=202 name=Z Axis
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=12 type=102 name=Y Axis
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=16 type=2 name=X Axis
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=20 type=602 name=Accelerator
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=24 type=702 name=Brake
+2026/07/23 23:41:11.930 Info   Detected a DI joystick: Twin USB Joystick, Twin USB Joystick, 550020BC, {E5FB2720-86E9-11F1-8002-444553540000}
+2026/07/23 23:41:11.930 Info   numAxis = 6
+2026/07/23 23:41:11.930 Info   numPOVs = 1
+2026/07/23 23:41:11.930 Info   numButtons = 15
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=4 type=502 name=Z Rotation
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=8 type=202 name=Z Axis
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=12 type=102 name=Y Axis
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=16 type=2 name=X Axis
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=20 type=602 name=Accelerator
+2026/07/23 23:41:11.930 Info   EnumDeviceObject: Axis offset=24 type=702 name=Brake
+2026/07/23 23:41:11.962 Info   DetectJoysticks: Detected 2 DI joystick(s)
+2026/07/23 23:41:11.962 Info   Assign Twin USB Joystick to Joystick[1] ({E5FB2720-86E9-11F1-8001-444553540000})
+2026/07/23 23:41:11.962 Info   Assign Twin USB Joystick to Joystick[2] ({E5FB2720-86E9-11F1-8002-444553540000})
+2026/07/23 23:41:11.962 Info   2 joystick(s) are detected (Processing.cpp#317)
+2026/07/23 23:44:23.052 Info   Save config file "ç≈èâÇÃê›íË" (ConfigFileManager.cpp#430)
+2026/07/23 23:44:24.212 Error  Failed to obtain the target window handle (Utils.cpp#357)
+2026/07/23 23:44:24.212 Error  Access is denied.
+ (Utils.cpp#358)
+2026/07/23 23:44:26.197 Error  Failed to obtain the target window handle (Utils.cpp#357)
+2026/07/23 23:44:26.197 Error  Access is denied.
+ (Utils.cpp#358)
+2026/07/23 23:44:28.487 Error  Failed to obtain the target window handle (Utils.cpp#357)
+2026/07/23 23:44:28.487 Error  Access is denied.
+ (Utils.cpp#358)
+2026/07/23 23:44:40.682 Info   Save config file "ç≈èâÇÃê›íË" (ConfigFileManager.cpp#430)
