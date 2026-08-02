@@ -1,5 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
+from google import genai
 from PIL import Image
 
 st.set_page_config(page_title="AI Label & Prescription Scanner", layout="centered")
@@ -12,8 +12,8 @@ api_key = st.secrets.get("GEMINI_API_KEY", None)
 if not api_key:
     st.error("⚠️ Gemini API Key missing! Streamlit Cloud Settings -> Secrets me GEMINI_API_KEY add karein.")
 else:
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    # Naya GenAI Client (AQ... key support ke saath)
+    client = genai.Client(api_key=api_key)
 
     st.sidebar.header("⚙️ Input Settings")
     input_mode = st.sidebar.radio("Scan Mode Chunein:", ["Live Camera Capture", "File Upload (Gallery)"])
@@ -55,7 +55,11 @@ else:
 
         with st.spinner("Analyzing image... Please wait..."):
             try:
-                response = model.generate_content([prompt, img])
+                # Naya models.generate_content call
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash",
+                    contents=[prompt, img]
+                )
                 st.markdown("### 🔍 Analysis Result")
                 st.write(response.text)
             except Exception as e:
